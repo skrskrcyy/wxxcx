@@ -1,0 +1,296 @@
+<!-- 顶部提示栏 -->
+<i-message id="message" />
+<!-- 透明蒙层 -->
+<view class='cover' wx:if="{{showCommentDialog||showCommentDialog_reply||join||showReply||showDelete}}" bindtap="hideCommentDialog"></view>
+<!-- input键盘 -->
+<view class='dialog_content' wx:if="{{showCommentDialog}}">
+  <input bindinput='inputComment' placeholder='请输入评论/回复' class="dialog-content-input" focus='true'></input>
+  <button catchtap="publishComment" class="dialog-content-btn">评论</button>
+</view>
+<!-- 回复 -->
+<view class='reply' wx:if="{{showReply}}" catchtap='replyComment'>
+  <text>回复</text>
+</view>
+<!-- 删除 -->
+<view class='reply' wx:if="{{showDelete}}" catchtap='deleteComment'>
+  <text>删除</text>
+</view>
+<!-- 回复键盘 -->
+<view class='dialog_content' wx:if="{{showCommentDialog_reply}}">
+  <input bindinput='inputCommentReply' placeholder='请输入评论/回复' class="dialog-content-input" focus='true'></input>
+  <button catchtap="publishCommentRelpy" class="dialog-content-btn">评论</button>
+</view>
+<!-- 加入活动填写信息 -->
+<view wx:if='{{join}}' class='join_form'>
+  <form bindsubmit='upSubmit' bindreset='' class='form_join'>
+    <view class='user_name'>
+      <input class='input_name' placeholder='真实姓名' placeholder-class='true_name' name='name'></input>
+      <text class='must'>*必填</text>
+    </view>
+    <view class='user_card'>
+      <input class='card' placeholder='会员卡号' placeholder-class='true_card' name='card'></input>
+    </view>
+    <view class='user_card'>
+      <input class='card' placeholder='手机号码' placeholder-class='true_card' name='tel'></input>
+      <text class='must'>*必填</text>
+    </view>
+    <view class='two_button'>
+      <button type='primary' form-type='submit' class='yes'>确定</button>
+      <button type='warn' catchtap='no' class='no'>取消</button>
+    </view>
+  </form>
+</view>
+
+
+<!-- 须知蒙层 -->
+<view class='cover' wx:if="{{show_toptip}}" bindtap="hideAboutDialog"></view>
+<view class='about_page' wx:if="{{show_toptip}}">
+  <image src='/static/images/more/close.png ' bindtap='tap_x'></image>
+  <text> 
+本人，在参加活动之前已经阅读活动规则，知晓该活动存在一定的危险性；
+I have read the relevant rules before activities and been aware of a certain hazard that may arise from activities;
+
+本人认为迪卡侬已经完全履行对本人的合理安全照顾义务；
+I agreed that Decathlon has fully performed its obligation of properly attending my safety;  
+
+本人承诺，发生以下状况，迪卡侬无须对本人的前述人身伤害负责：
+I  undertake that Decathlon may not be held responsible for my personal injury under following circumstance:
+
+1）在服用药物（感冒、镇静、抗过敏药品、心脏病类药物等）情况下或宿醉酒后参加本活动；
+Participate in activities when taking drugs (medicines for cold, sedative category, anti-allergy and heart disease, etc.) or after getting alcoholic drinks.
+
+2）因本人在参加活动前身体不适、疲劳或精神不佳参加活动而引起人身伤害的；
+Personal injury was caused by physical discomfort, tired or in bad spirit before participating in the activities.
+
+3) 饭后一小时内运动;
+Participate in the activities within one hour after a meal.
+
+4) 本人未穿着运动服饰以及球鞋进行场内活动引起人身伤害的；
+Participate in the activities without wearing sportswear and sports shoes.
+</text>
+</view>
+
+
+<i-spin size='large' fix wx:if='{{spinShow}}' ></i-spin>
+
+<view class="{{spinShow ? 'scroll-lock' : ''}}" style='height:{{kscreenH}}px'>
+<scroll-view class='screen' scroll-y>
+
+  <import src='../template/top/top.wxml' />
+  <template is='have_gray_top' data='{{src,font_name,kscreenH}}'></template>
+
+
+  <view class='blank' style='height:{{0.190*kscreenH}}px'></view>
+  <view class='project'>活动信息</view>
+
+  <view class='containerr'>
+    <text class='titl'>活动名称</text>
+    <view class='left_cont'>
+      <text class='text'>{{detail.name}}</text>
+    </view>
+  </view>
+  
+
+
+
+
+  <view class='containerr'>
+    <text class='titl'>活动描述</text>
+    <view class='left_cont'>
+      <text class='text'>{{detail.description}}</text>
+    </view>
+  </view>
+
+  <view class='containerr'>
+    <text class='titl'>活动地点</text>
+    <view class='left_cont'>
+    <view class='loc_get_con' bindtap='getloc' data-longitude='{{detail.longitude}}' data-latitude='{{detail.latitude}}'>
+      <image  class='loc_get' src='/static/images/didian.png '></image>
+      </view>
+      <text class='text'>{{detail.place}}</text>
+    </view>
+  </view>
+
+  <view class='containerr'>
+    <text class='titl'>活动时间</text>
+    <view class='left_cont'>
+      <text class='text'>{{ingtime}}</text>
+    </view>
+  </view>
+
+
+  <view class='containerr'>
+    <text class='titl'>活动图片</text>
+    <image class='left_img' src='{{detail.image}}' bindload='loadSpin' aspectFit></image>
+  </view>
+
+
+  <view class='project'>活动评论</view>
+
+  <view class='containerr'>
+    <text class='titl'>评论留言</text>
+    <view class='left_cont_layout'>
+
+      <view wx:if='{{all_comment_count>0}}'>
+
+        <view class="rv-row">
+          <view class="rv-col-12 ceshi {{lingyige[0]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[0].openid}}' data-id='{{all_comment[0].ID}}' wx:if='{{all_comment[0]}}' data-count='0'>{{all_comment[0].comment}}</view>
+          <view class="rv-col-12 ceshi2 {{lingyige[1]?'linyige':''}}"  bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[1].openid}}' data-id='{{all_comment[1].ID}}' wx:if='{{all_comment[1]}}' data-count='1'>{{all_comment[1].comment}}</view>
+        </view>
+
+        
+
+        <view class="rv-row">
+          <view class="rv-col-8 ceshi {{lingyige[2]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[2].openid}}' data-id='{{all_comment[2].ID}}' wx:if='{{all_comment[2]}}' data-count='2'>{{all_comment[2].comment}}</view>
+          <view class="rv-col-8 ceshi2 {{lingyige[3]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[3].openid}}' data-id='{{all_comment[3].ID}}' wx:if='{{all_comment[3]}}' data-count='3'>{{all_comment[3].comment}}</view>
+          <view class="rv-col-8 ceshi {{lingyige[4]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[4].openid}}' data-id='{{all_comment[4].ID}}' wx:if='{{all_comment[4]}}' data-count='4'>{{all_comment[4].comment}}</view>
+        </view>
+
+        
+
+        <view class="rv-row">
+          
+          <view class="rv-col-6 ceshi2 {{lingyige[5]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[5].openid}}' data-id='{{all_comment[5].ID}}' wx:if='{{all_comment[5]}}' data-count='5'>{{all_comment[5].comment}}</view>
+          <view class="rv-col-6 ceshi {{lingyige[6]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[6].openid}}' data-id='{{all_comment[6].ID}}' wx:if='{{all_comment[6]}}' data-count='6'>{{all_comment[6].comment}}</view>
+          <view class="rv-col-6 ceshi2 {{lingyige[7]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[7].openid}}' data-id='{{all_comment[7].ID}}' wx:if='{{all_comment[7]}}' data-count='7'>{{all_comment[7].comment}}</view>
+          <view class="rv-col-6 ceshi  {{lingyige[8]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[8].openid}}' data-id='{{all_comment[8].ID}}' wx:if='{{all_comment[8]}}' data-count='8'>{{all_comment[8].comment}}</view>
+        </view>
+        <view class="rv-row">
+          <view class="rv-col-12 ceshi {{lingyige[9]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[9].openid}}' data-id='{{all_comment[9].ID}}' wx:if='{{all_comment[9]}}' data-count='9'>{{all_comment[9].comment}}</view>
+          <view class="rv-col-12 ceshi2 {{lingyige[10]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[10].openid}}' data-id='{{all_comment[10].ID}}' wx:if='{{all_comment[10]}}' data-count='10'>{{all_comment[10].comment}}</view>
+        </view>
+
+        
+
+        <view class="rv-row">
+          <view class="rv-col-8 ceshi {{lingyige[11]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[11].openid}}' data-id='{{all_comment[11].ID}}' wx:if='{{all_comment[11]}}' data-count='11'>{{all_comment[11].comment}}</view>
+          <view class="rv-col-8 ceshi2 {{lingyige[12]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[12].openid}}' data-id='{{all_comment[12].ID}}' wx:if='{{all_comment[12]}}' data-count='12'>{{all_comment[12].comment}}</view>
+          <view class="rv-col-8 ceshi {{lingyige[13]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[13].openid}}' data-id='{{all_comment[13].ID}}' wx:if='{{all_comment[13]}}' data-count='13'>{{all_comment[13].comment}}</view>
+        </view>
+
+        
+
+        <view class="rv-row">
+          
+          <view class="rv-col-6 ceshi2 {{lingyige[14]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[14].openid}}' data-id='{{all_comment[14].ID}}' wx:if='{{all_comment[14]}}' data-count='14'>{{all_comment[14].comment}}</view>
+          <view class="rv-col-6 ceshi {{lingyige[15]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[15].openid}}' data-id='{{all_comment[15].ID}}' wx:if='{{all_comment[15]}}' data-count='15'>{{all_comment[15].comment}}</view>
+          <view class="rv-col-6 ceshi2 {{lingyige[16]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[16].openid}}' data-id='{{all_comment[16].ID}}' wx:if='{{all_comment[16]}}' data-count='16'>{{all_comment[16].comment}}</view>
+          <view class="rv-col-6 ceshi {{lingyige[17]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[17].openid}}' data-id='{{all_comment[17].ID}}' wx:if='{{all_comment[17]}}' data-count='17'>{{all_comment[17].comment}}</view>
+        </view>
+        <view class="rv-row">
+          <view class="rv-col-12 ceshi {{lingyige[18]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[18].openid}}' data-id='{{all_comment[18].ID}}' wx:if='{{all_comment[18]}}' data-count='18'>{{all_comment[18].comment}}</view>
+          <view class="rv-col-12 ceshi2 {{lingyige[19]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[19].openid}}' data-id='{{all_comment[19].ID}}' wx:if='{{all_comment[19]}}' data-count='19'>{{all_comment[19].comment}}</view>
+        </view>
+
+        
+
+        <view class="rv-row">
+          <view class="rv-col-8 ceshi {{lingyige[20]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[20].openid}}' data-id='{{all_comment[20].ID}}' wx:if='{{all_comment[20]}}' data-count='20'>{{all_comment[20].comment}}</view>
+          <view class="rv-col-8 ceshi2 {{lingyige[21]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[21].openid}}' data-id='{{all_comment[21].ID}}' wx:if='{{all_comment[21]}}' data-count='21'>{{all_comment[21].comment}}</view>
+          <view class="rv-col-8 ceshi {{lingyige[22]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[22].openid}}' data-id='{{all_comment[22].ID}}' wx:if='{{all_comment[22]}}' data-count='22'>{{all_comment[22].comment}}</view>
+        </view>
+
+        
+
+        <view class="rv-row">
+          
+          <view class="rv-col-6 ceshi2 {{lingyige[23]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[23].openid}}' data-id='{{all_comment[23].ID}}' wx:if='{{all_comment[23]}}' data-count='23'>{{all_comment[23].comment}}</view>
+          <view class="rv-col-6 ceshi {{lingyige[24]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[24].openid}}' data-id='{{all_comment[24].ID}}' wx:if='{{all_comment[24]}}' data-count='24'>{{all_comment[24].comment}}</view>
+          <view class="rv-col-6 ceshi2 {{lingyige[25]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[25].openid}}' data-id='{{all_comment[25].ID}}' wx:if='{{all_comment[25]}}' data-count='25'>{{all_comment[25].comment}}</view>
+          <view class="rv-col-6 ceshi {{lingyige[26]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[26].openid}}' data-id='{{all_comment[26].ID}}' wx:if='{{all_comment[26]}}' data-count='26'>{{all_comment[26].comment}}</view>
+        </view>
+        <view class="rv-row">
+          <view class="rv-col-12 ceshi {{lingyige[27]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[27].openid}}' data-id='{{all_comment[27].ID}}' wx:if='{{all_comment[27]}}' data-count='27'>{{all_comment[27].comment}}</view>
+          <view class="rv-col-12 ceshi2 {{lingyige[28]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[28].openid}}' data-id='{{all_comment[28].ID}}' wx:if='{{all_comment[28]}}' data-count='28'>{{all_comment[28].comment}}</view>
+        </view>
+
+        
+
+        <view class="rv-row">
+          <view class="rv-col-8 ceshi {{lingyige[29]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[29].openid}}' data-id='{{all_comment[29].ID}}' wx:if='{{all_comment[29]}}' data-count='29'>{{all_comment[29].comment}}</view>
+          <view class="rv-col-8 ceshi2 {{lingyige[30]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[30].openid}}' data-id='{{all_comment[30].ID}}' wx:if='{{all_comment[30]}}' data-count='30'>{{all_comment[30].comment}}</view>
+          <view class="rv-col-8 ceshi {{lingyige[31]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[31].openid}}' data-id='{{all_comment[31].ID}}' wx:if='{{all_comment[31]}}' data-count='31'>{{all_comment[31].comment}}</view>
+        </view>
+
+        
+
+        <view class="rv-row">
+          
+          <view class="rv-col-6 ceshi2 {{lingyige[32]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[32].openid}}' data-id='{{all_comment[32].ID}}' wx:if='{{all_comment[32]}}' data-count='32'>{{all_comment[32].comment}}</view>
+          <view class="rv-col-6 ceshi {{lingyige[33]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[33].openid}}' data-id='{{all_comment[33].ID}}' wx:if='{{all_comment[33]}}' data-count='33'>{{all_comment[33].comment}}</view>
+          <view class="rv-col-6 ceshi2 {{lingyige[34]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[34].openid}}' data-id='{{all_comment[34].ID}}' wx:if='{{all_comment[34]}}' data-count='34'>{{all_comment[34].comment}}</view>
+          <view class="rv-col-6 ceshi {{lingyige[35]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[35].openid}}' data-id='{{all_comment[35].ID}}' wx:if='{{all_comment[35]}}' data-count='35'>{{all_comment[35].comment}}</view>
+        </view>
+        <view class="rv-row">
+          <view class="rv-col-12 ceshi {{lingyige[36]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[36].openid}}' data-id='{{all_comment[36].ID}}' wx:if='{{all_comment[36]}}' data-count='36'>{{all_comment[36].comment}}</view>
+          <view class="rv-col-12 ceshi2 {{lingyige[37]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[37].openid}}' data-id='{{all_comment[37].ID}}' wx:if='{{all_comment[37]}}' data-count='37'>{{all_comment[37].comment}}</view>
+        </view>
+
+        
+
+        <view class="rv-row">
+          <view class="rv-col-8 ceshi {{lingyige[38]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[38].openid}}' data-id='{{all_comment[38].ID}}' wx:if='{{all_comment[38]}}' data-count='38'>{{all_comment[38].comment}}</view>
+          <view class="rv-col-8 ceshi2 {{lingyige[39]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[39].openid}}' data-id='{{all_comment[39].ID}}' wx:if='{{all_comment[39]}}' data-count='39'>{{all_comment[39].comment}}</view>
+          <view class="rv-col-8 ceshi {{lingyige[40]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[40].openid}}' data-id='{{all_comment[40].ID}}' wx:if='{{all_comment[40]}}' data-count='40'>{{all_comment[40].comment}}</view>
+        </view>
+
+        
+
+        <view class="rv-row">
+          
+          <view class="rv-col-6 ceshi2 {{lingyige[41]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[41].openid}}' data-id='{{all_comment[41].ID}}' wx:if='{{all_comment[41]}}' data-count='41'>{{all_comment[41].comment}}</view>
+          <view class="rv-col-6 ceshi {{lingyige[42]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[42].openid}}' data-id='{{all_comment[42].ID}}' wx:if='{{all_comment[42]}}' data-count='42'>{{all_comment[42].comment}}</view>
+          <view class="rv-col-6 ceshi2 {{lingyige[43]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[43].openid}}' data-id='{{all_comment[43].ID}}' wx:if='{{all_comment[43]}}' data-count='43'>{{all_comment[43].comment}}</view>
+          <view class="rv-col-6 ceshi {{lingyige[44]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[44].openid}}' data-id='{{all_comment[44].ID}}' wx:if='{{all_comment[44]}}' data-count='44'>{{all_comment[44].comment}}</view>
+        </view>
+        <view class="rv-row">
+          <view class="rv-col-12 ceshi {{lingyige[45]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[45].openid}}' data-id='{{all_comment[45].ID}}' wx:if='{{all_comment[45]}}' data-count='45'>{{all_comment[45].comment}}</view>
+          <view class="rv-col-12 ceshi2 {{lingyige[46]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[46].openid}}' data-id='{{all_comment[46].ID}}' wx:if='{{all_comment[46]}}' data-count='46'>{{all_comment[46].comment}}</view>
+        </view>
+
+        
+
+        <view class="rv-row">
+          <view class="rv-col-8 ceshi {{lingyige[47]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[47].openid}}' data-id='{{all_comment[47].ID}}' wx:if='{{all_comment[47]}}' data-count='47'>{{all_comment[47].comment}}</view>
+          <view class="rv-col-8 ceshi2 {{lingyige[48]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[48].openid}}' data-id='{{all_comment[48].ID}}' wx:if='{{all_comment[48]}}' data-count='48'>{{all_comment[48].comment}}</view>
+          <view class="rv-col-8 ceshi {{lingyige[49]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[49].openid}}' data-id='{{all_comment[49].ID}}' wx:if='{{all_comment[49]}}' data-count='49'>{{all_comment[49].comment}}</view>
+        </view>
+
+        
+
+        <view class="rv-row">
+          
+          <view class="rv-col-6 ceshi2 {{lingyige[50]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[50].openid}}' data-id='{{all_comment[50].ID}}' wx:if='{{all_comment[50]}}' data-count='50'>{{all_comment[50].comment}}</view>
+          <view class="rv-col-6 ceshi {{lingyige[51]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[51].openid}}' data-id='{{all_comment[51].ID}}' wx:if='{{all_comment[51]}}' data-count='51'>{{all_comment[51].comment}}</view>
+          <view class="rv-col-6 ceshi2 {{lingyige[52]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[52].openid}}' data-id='{{all_comment[52].ID}}' wx:if='{{all_comment[52]}}' data-count='52'>{{all_comment[52].comment}}</view>
+          <view class="rv-col-6 ceshi {{lingyige[53]?'linyige':''}}" bindtap="multipleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-openid='{{all_comment[53].openid}}' data-id='{{all_comment[53].ID}}' wx:if='{{all_comment[53]}}'>{{all_comment[53].comment}}</view>
+        </view>
+      </view>
+      <text class='zanwu' wx:if='{{all_comment_count==0}}'>暂无...</text>
+
+      <view class='buttonnn' bindtap='comment' hover-class='hover_buttonnn'>我要评论</view>
+    </view>
+    <view class='gapp2'></view>
+  </view>
+
+  <view class='project'>参加活动</view>
+
+  <view class='sign_up_contentt'>
+    <checkbox-group bindchange="checkboxChange" class='checkk'>
+      <checkbox class='agreee' value='{{agree_text.value}}' checked='{{agree_text.value}}'>{{agree_text.text}}</checkbox>
+    </checkbox-group>
+    <text class='aboutt' bindtap='tap_about'>相关条款和约定</text>
+  </view>
+
+  <view class="sign_up_buttonn {{dead?'die':''}}" bindtap="{{dead?'':'sign_up'}}" hover-class='strech_hover'>
+
+    <view class='memememe' wx:if='{{!dead}}'>我要参加</view>
+    <view class='memememe' wx:if='{{dead}}'>已过期</view>
+    <image src='/static/images/more/right_g.png '></image>
+  </view>
+  <view class='blank3'></view>
+  <template is='bottom' />
+
+  
+</scroll-view>
+</view>

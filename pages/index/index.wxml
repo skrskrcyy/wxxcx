@@ -1,0 +1,42 @@
+
+<!-- 顶部提示栏 -->
+<i-message id="message" />
+
+
+<i-spin size='large' fix wx:if='{{spinShow}}' ></i-spin>
+<view class="{{spinShow ? 'scroll-lock' : ''}}" style='height:{{kscreenH}}px'>
+<scroll-view class='screen' scroll-y >
+ 
+  <view class='topp' style='height:{{0.501*kscreenH}}px'>
+    <swiper autoplay='{{autoplay}}'  duration='500' interval='4000' circular='{{circular}}'  class='swiper' style='height:{{0.501*kscreenH}}px'>
+  
+    
+    <swiper-item wx:for='{{postsShowSwiperList}}' wx:key='{{index}}'  class="{{dead[index]?'die':''}}">
+      <view class='horiza'>
+        <image src='/static/images/comment3.png ' class='comment3'></image>
+        <view class='geshu'>{{item.comment_count}}</view>
+        <image src='/static/images/people3.png ' class='comment3'></image>
+        <view class='geshu'>{{item.join_count}}</view>
+      </view>
+
+
+      <image src='{{item.image}}' class='swiper_pic ' style='height:{{0.501*kscreenH}}px' bindtap='tapActivities' data-id="{{item.partyID}}" bindload='imageLoad'  data-people='{{join_count}}'>
+        
+      </image>
+      
+    </swiper-item>   
+  </swiper>
+  </view>
+
+
+
+  <view class='strech' style='top:{{0.531*kscreenH}}px' bindtap='tap_to_clubs' hover-class='strech_hover'><view class='waimianmian'></view><image src='/static/images/jiantou.png ' class='jiantou'></image><view class='zi'>点击这里，查看活动项目</view></view>
+  <view class='strech' style='top:{{0.721*kscreenH}}px' bindtap='tap_to_mine' hover-class='strech_hover'><view class='waimianmian'></view><image src='/static/images/jiantou.png ' class='jiantou'></image><view class='zi'>点击这里，查看我的信息</view></view>
+  
+  <view class='bottom' style='top:{{0.851*kscreenH}}px'> 
+    <view class='bottom_shadow'></view>
+  </view>
+  <image class='dikanong_pic'  src='/static/images/dikanong.jpg ' ></image>
+  
+</scroll-view>
+</view>

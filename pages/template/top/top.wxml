@@ -1,0 +1,30 @@
+<!-- 不根据机子高度的，用于内容足够多，不传入kscreenH，不够多，就得传入 -->
+<template name='have_gray_top'>
+  <view class='boxx_shadow' style='height:{{0.331*kscreenH}}px'></view>
+  <view class='name' style='top:{{0.081*kscreenH}}px'>
+  <text class='font' >{{font_name}}</text>
+  </view>
+  <view class='gray' style='height:{{0.331*kscreenH}}px'></view>
+  <image class='top' src='{{src}}' style='height:{{0.331*kscreenH}}px'></image>
+</template>
+
+<template name='no_gray_top'>
+  <view class='name' >
+  <text class='font' >俱乐部</text>
+  </view> 
+  <image class='top' src='/static/images/4.jpg' ></image>
+</template>
+
+
+
+<!-- 黄色小标题 ，没有position来规定位置运动，就是通过magin来布局-->
+<template name='project'>
+  <view class='project' >{{title}}</view>
+</template>
+
+<template name='bottom'>
+  <view class='bottom' style='top:{{0.851*kscreenH}}px'> 
+    <view class='bottom_shadow'></view>
+  </view>
+  <image class='dikanong_pic'  src='/static/images/dikanong.jpg ' ></image>
+</template>

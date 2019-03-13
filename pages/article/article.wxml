@@ -1,0 +1,5 @@
+<view>
+  <view class='top'></view>
+  <i-btn type="primary" open-type='openSetting'>确认授权地理位置</i-btn>
+  
+</view>

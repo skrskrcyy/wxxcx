@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "rv-button": "../../component/btn/index",
+    "i-message": "../../component/message/index",
+    "i-spin": "../../component/spin/index"
+  }
+}

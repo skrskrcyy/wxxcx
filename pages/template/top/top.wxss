@@ -1,0 +1,175 @@
+.font{
+  color: rgb(255,255,255);
+  
+  font-size: 50rpx;
+  
+  
+  
+  font-weight: lighter
+}
+
+.name{
+  position: absolute;
+  top: 100rpx;
+  width: 300rpx;
+  height: 68rpx;
+  margin-left: 225rpx;
+  background-color: rgb(71,67,76);
+  z-index: 3;
+  opacity: 0.5;
+  transform: skewY(-10deg);
+  -webkit-transform: skewY(-10deg);
+  text-align: center
+  
+}
+
+
+
+.gray{
+  position: absolute;
+  top: 0;
+  width: 750rpx;
+  height: 400rpx;
+  background-color: rgb(57, 54, 61);
+  z-index: 2;
+  opacity: 0.5
+}
+
+.gray::before{
+  content: '';
+  opacity: 1;
+  display: block;
+  position: absolute;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-left: 750rpx solid transparent;
+  border-bottom: 132.25rpx solid rgb(57, 54, 61) ;
+  z-index: 4
+}
+
+
+.gray::after{
+  content: '';
+  display: block;
+  position: absolute;
+  z-index: 3;
+  bottom: 0rpx;
+  height: 8rpx;
+  width: 0rpx;
+  border-top: 132.25rpx solid transparent;
+  border-right:750rpx solid  rgb(255, 84, 0);
+}
+
+.top{
+  height: 400rpx;
+  width: 750rpx;
+  position: absolute;
+  z-index: 1;
+}
+
+.top::before{
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-left: 750rpx solid transparent;
+  border-bottom: 132.25rpx solid rgb(57, 54, 61) ;
+  z-index: 4
+}
+
+.top::after{
+  content: '';
+  display: block;
+  position: absolute;
+  z-index: 3;
+  bottom: 0rpx;
+  height: 8rpx;
+  width: 0rpx;
+  border-top: 132.25rpx solid transparent;
+  border-right:750rpx solid  rgb(255, 84, 0);
+}
+
+
+
+
+
+
+.project{
+  position: relative;
+  z-index: 10;
+  margin-top: 100rpx;
+  margin-left: 60rpx;
+  width: 160rpx;
+  height: 50rpx;
+  background-image: linear-gradient(#FEFF00,#FEB900);
+  transform: skewX(-10deg);
+  -webkit-transform: skewX(-10deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 31rpx;
+  box-shadow: 1rpx 0.3rpx 10rpx 2rpx hsla(0, 0%, 0%, 0.6)
+  
+  
+}
+
+.screen{
+  position: fixed;
+  top: 0;
+  bottom:0;
+  width: 750rpx;
+  z-index: 0;
+  background-color: rgb(57, 54, 61) 
+}
+
+.bottom{
+  position: absolute;
+  z-index: 2;
+  bottom: 0rpx;
+  height: 60rpx;
+  width:0;
+  border-right:750rpx solid rgb(255, 84, 0);
+  border-top: 132.25rpx solid transparent
+}
+.bottom::after{
+  content: '';
+  position: absolute;
+  z-index: 1;
+  bottom: 0rpx;
+  height: 50rpx;
+  width:0;
+  border-right:750rpx solid rgb(0, 150, 220);
+  border-top: 132.25rpx solid transparent; 
+}
+
+.dikanong_pic{
+  position: absolute;
+  z-index: 5;
+  bottom: 20rpx;
+  right: 40rpx;
+  width: 160rpx;
+  height: 100rpx
+}
+
+.boxx_shadow{
+  position: absolute;
+  width: 750rpx;
+  top: -66.125rpx;
+  height: 600rpx;
+  z-index: 6;
+  transform: skewY(-10deg);
+  box-shadow: 0 8rpx 29rpx 25rpx hsla(0, 0%, 0%, 0.6)
+}
+
+.bottom_shadow{
+  position: absolute;
+  width: 750rpx;
+  bottom: 66.125rpx;
+  height: 58rpx;
+  z-index: 1;
+  transform: skewY(-10deg);
+  box-shadow: 0 -3rpx 30rpx 20rpx hsla(0, 0%, 0%, 0.6)
+}

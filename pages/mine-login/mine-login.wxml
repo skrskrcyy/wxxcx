@@ -1,0 +1,84 @@
+<!-- 透明蒙层 -->
+<view class='cover' wx:if="{{showCommentDialog_reply_cover}}" bindtap="hideCommentDialog"></view>
+
+<!-- 回复 -->
+<view class='reply' wx:if="{{showReply}}" catchtap='replyToOne'>
+  <text>回复</text>
+</view>
+<!-- 回复键盘 -->
+<view class='dialog_content' wx:if="{{showCommentDialog_reply}}">
+  <input bindinput='inputCommentReply' placeholder='请输入评论/回复' class="dialog-content-input" focus='true'></input>
+  <button catchtap="publishCommentRelpy" class="dialog-content-btn">回复</button>
+</view>
+
+
+
+<!-- 顶部提示栏 -->
+<i-message id="message" />
+<i-spin size='large' fix wx:if='{{spinShow}}'></i-spin>
+<view class="{{spinShow ? 'scroll-lock' : ''}}" style='height:{{kscreenH}}px'>
+<scroll-view class='screen' scroll-y>
+
+  <import src='../template/top/top.wxml' />
+  <template is='have_gray_top' data='{{font_name,src,kscreenH}}' />
+  <view class='blank' style='height:{{0.21*kscreenH}}px'></view>
+  <template is='project' data='{{title}}' />
+  <template is='bottom' />
+
+  <view class='huodong'>
+
+    <scroll-view scroll-y class='containe'>
+      <view wx:for='{{user_act}}' wx:key='{{index}}' wx:if="{{have_user_act}}">
+
+
+        <view class='jiuji'  bindtouchstart='startDelete'  data-partyID='{{item.partyID}}'bindtouchend='endDelete' data-index='{{index}}' style='{{list[index].txtStyle}}'>
+
+          <i-card title='{{item.name}}' catchtap='click_to_act' data-id='{{item.partyID}}' data-people='{{item.num}}' extra='{{ingtime[index]}}'  >
+            <view slot="content" class='iii'>{{item.place}}</view>
+            <view slot="footer" style='color:#FF0300' wx:if='{{dead[index]}}'>已过期</view>
+          </i-card>
+          <view class='delete' catchtap='toast' data-partyID='{{item.partyID}}' data-index="{{index}}">退出</view>
+          
+        </view>
+
+        
+      </view>
+      <view class='meiwu' wx:if="{{!have_user_act}}">您暂未参加任何活动。</view>
+    </scroll-view>
+  </view>
+
+  <view class='project'>我的信息</view>
+  <view class='huodong'>
+
+    <scroll-view scroll-y class='containe'>
+      <view wx:for='{{infoList}}' wx:key='{{index}}' wx:if="{{have_infoList}}">
+
+
+        <view class='jiuji'  bindtouchstart='startOut'  data-partyID='{{item.partyID}}'bindtouchend='endMove' data-index='{{index}}' style='{{list2[index].txtStyle}}'>
+
+          <i-card thumb="{{item.head}}" title='{{item.name}}' catchtap='openReply'data-id='{{item.ID}}' data-commentid='{{item.commentid}}' data-openid='{{item.openid}}' extra='{{item.time}}' >
+            <view slot="content" class='iii'>{{item.content}}</view>
+          </i-card>
+          <view class='delete_one' catchtap='deleteOne' data-id='{{item.ID}}' data-commentid='{{item.commentid}}' data-openid='{{item.openid}}'>删除</view>
+          
+        </view>
+
+        
+      </view>
+      <view class='meiwu' wx:if="{{!have_infoList}}">您暂无任何消息。</view>
+    </scroll-view>
+  </view>
+
+  <view class='userinfoma'>
+    
+    <button wx:if="{{!hasUserInfo && canIUse }}" open-type="getUserInfo" bindgetuserinfo="GetUserInfo" class='iftrue' hover-class='strech_hover'>登录我的微信号</button>
+    <block wx:if="{{hasUserInfo}}">
+      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+
+  </view>
+
+  <view class='blank3'></view>
+</scroll-view>
+</view>

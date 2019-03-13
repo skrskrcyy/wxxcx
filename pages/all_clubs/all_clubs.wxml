@@ -1,0 +1,31 @@
+<!-- 顶部提示栏 -->
+<i-message id="message" />
+<i-spin size='large' fix wx:if='{{spinShow[0]==true||spinShow[1]==true||spinShow[2]==true||spinShow[3]==true||spinShow[4]==true||spinShow[5]==true||spinShow[6]==true||spinShow[7]==true||spinShow[8]==true||spinShow[9]==true||spinShow[10]==true||spinShow[11]==true}}' ></i-spin>
+
+<view class="{{spinShow[0]==true||spinShow[1]==true||spinShow[2]==true||spinShow[3]==true||spinShow[4]==true||spinShow[5]==true||spinShow[6]==true||spinShow[7]==true||spinShow[8]==true||spinShow[9]==true||spinShow[10]==true||spinShow[11]==true ? 'scroll-lock' : ''}}" style='height:{{kscreenH}}px'>
+ 
+
+<scroll-view class='screen'  >
+  
+  <import src='../template/top/top.wxml' />
+  <template is='have_gray_top' data='{{src,font_name,kscreenH}}'></template>
+  <view class='blank' style='height:{{0.210*kscreenH}}px'></view>  
+  <block wx:for='{{activities}}' wx:key='{{index}}'>
+  <view class='iew'>
+    <view class='cemian'>{{item.name}}</view> 
+    <view class='run_club' bindtap='tap_activities' data-club-name="{{item.id}}">
+      <view class='dingbu'></view>   
+      
+       
+      
+
+      <image src='{{item.src}}' bindload='loadSpin' binderror='error_show' aspectFit class='act_pic' data-index='{{index}}'></image>
+    </view>
+  </view>
+  </block>
+  
+
+  <view class='blank2' ></view>
+  <template is='bottom' />
+</scroll-view>
+</view>

@@ -1,0 +1,25 @@
+{
+  "pages": [
+    
+    "pages/index/index",
+    "pages/club/club",
+    "pages/all_clubs/all_clubs",
+    "pages/mine-login/mine-login",    
+    "pages/detail/detail",   
+    "pages/article/article",
+    "pages/logs/logs"
+    
+  ],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarBackgroundColor": "#0082C3",
+    "navigationBarTitleText": "迪卡侬活动报名助手",
+    "backgroundColor": "#fff"
+  },
+  
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+  }
+
+}

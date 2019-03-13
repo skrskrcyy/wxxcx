@@ -1,0 +1,8 @@
+{
+  
+  "usingComponents":{
+    "i-spin":"../../component/spin/index",
+    "i-message": "../../component/message/index",
+    "i-card": "../../component/card/index"
+  }
+}

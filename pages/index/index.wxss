@@ -1,0 +1,212 @@
+.screen{
+  width: 750rpx;
+  position: fixed;
+  top: 0;
+  bottom: 0
+}
+.swiper{
+  
+  transform: skewY(10deg);
+  -webkit-transform: skewY(10deg);
+  position: relative;
+  top: 66.125rpx;
+
+}
+
+.swiper_pic{
+  width: 750rpx;
+  height: 600rpx;
+  
+}
+
+
+
+
+.scroll-lock {
+ height: 400px;
+ overflow-y: hidden;
+}
+
+
+
+
+
+
+/* 底部 */
+
+
+.bottom{
+  position: absolute;
+  z-index: 2;
+  bottom: 0rpx;
+  height: 58rpx;
+  width:0;
+  border-right:750rpx solid rgb(255, 84, 0);
+  border-top: 132.25rpx solid transparent
+}
+.bottom::after{
+  content: '';
+  position: absolute;
+  z-index: 1;
+  bottom: 0rpx;
+  height: 50rpx;
+  width:0;
+  border-right:750rpx solid rgb(0, 150, 220);
+  border-top: 132.25rpx solid transparent;
+  
+}
+
+
+.dikanong_pic{
+  position: absolute;
+  z-index: 5;
+  bottom: 20rpx;
+  right: 40rpx;
+  width: 160rpx;
+  height: 100rpx
+}
+
+/* 中间的按钮 */
+.strech{
+  position: absolute;
+  top: 650rpx;
+  width: 550rpx;
+  margin-left: 100rpx;
+  margin-right: 100rpx;
+  background-image: linear-gradient(#FEFF00,#FEB900);
+  height: 100rpx;
+  transform: skewY(-10deg);
+  -webkit-transform: skewY(-10deg);
+  z-index: 6;
+  border-right: 5rpx;
+  box-shadow: 0 8rpx 12rpx 0rpx hsla(0, 0%, 0%, 0.2)
+}
+
+.strech_hover{
+  box-shadow: 0 0rpx 12rpx 5rpx hsla(0, 0%, 0%, 0.2) 
+}
+
+.jiantou{
+  position: absolute;
+  right: 10rpx;
+  top: 23rpx;
+  width: 40rpx;
+  height: 54rpx;
+}
+
+.strech::before{
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 55rpx;
+  height: 100%;
+  
+  background-image: linear-gradient(#FFFD05,#FFEF00 50%,#FFDA16)
+}
+.waimianmian{
+  width: 40rpx;
+  height: 100%;
+  position: absolute;
+  right: 30rpx;
+  top: 0;
+  transform: skewX(-10deg);
+  -webkit-transform: skewX(-10deg);
+  background-image: linear-gradient(#FFFD05,#FFEF00 50%,#FFDA16)
+}
+
+.zi{
+  position: absolute;
+  left: 0;
+  width: 500rpx;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40rpx;
+  font-weight: bold
+}
+
+.strech2{
+  position: absolute;
+  top: 850rpx;
+  width: 550rpx;
+  margin-left: 100rpx;
+  margin-right: 100rpx;
+  background-color: yellow;
+  height: 100rpx;
+  transform: skewY(-10deg);
+  -webkit-transform: skewY(-10deg);
+  z-index: 6;
+  
+}
+
+.die{
+  opacity: 0.5
+}
+
+.zhedang{
+  background-color: white;
+  position: absolute;
+  z-index: 5;
+  width: 750rpx;
+
+}
+
+.boxx_shadow{
+  position: absolute;
+  width: 750rpx;
+  top: -64.125rpx;
+  height: 900rpx;
+  z-index: 100;
+  transform: skewY(-10deg);
+  -webkit-transform: skewY(-10deg);
+  box-shadow: 0 8rpx 29rpx 5rpx hsla(0, 0%, 0%, 0.6)
+}
+
+.bottom_shadow{
+  position: absolute;
+  width: 750rpx;
+  bottom: 66.125rpx;
+  height: 58rpx;
+  z-index: 1;
+  transform: skewY(-10deg);
+  -webkit-transform: skewY(-10deg);
+  box-shadow: 0 -3rpx 30rpx 5rpx hsla(0, 0%, 0%, 0.6)
+}
+
+.horiza{
+  position: absolute;
+  top:20rpx;
+  left: 10rpx;
+  width: 200rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5
+}
+
+.comment3{
+  width: 30rpx;
+  height: 30rpx;
+  margin: 0 5rpx 0 15rpx
+}
+
+.geshu{
+  margin: 0 5rpx 0 5rpx;
+  font-size: 30rpx
+}
+
+.topp{
+  width: 750rpx;
+  height: 400rpx;
+  transform: skewY(-10deg);
+  -webkit-transform: skewY(-10deg);
+  background-color: white;
+  position: relative;
+  bottom: 66.125rpx;
+  border-bottom: 8rpx solid rgb(255, 84, 0);
+  box-shadow: 0 8rpx 29rpx 5rpx hsla(0, 0%, 0%, 0.6);
+  overflow: hidden;
+  
+}

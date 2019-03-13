@@ -1,0 +1,36 @@
+<!-- 顶部提示栏 -->
+<i-message id="message" />
+<i-spin size='large' fix wx:if='{{spinShow}}' ></i-spin>
+
+<view class="{{spinShow ? 'scroll-lock' : ''}}" style='height:{{kscreenH}}px'>
+<scroll-view class='{{all_acts.length>=2?"screen_have":"screen"}}' scroll-y>
+  
+  <import src='../template/top/top.wxml'/>
+  <template is='have_gray_top' data='{{font_name,src,kscreenH}}'/>
+  <view class='blank' style='height:{{0.210*kscreenH}}px'></view>
+  <template is='project' data='{{title}}'/>
+
+  <block wx:for='{{all_acts}}' wx:key='{{index}}' wx:if='{{all_acts.length>0}}'>
+    <view class="run_clubb"  >
+      <view class='dingbuu'></view> 
+      <view class='cemian'>{{item.name}}</view>  
+      <view class='horiza'>
+        <image src='/static/images/comment3.png ' class='comment3'></image>
+        <view class='geshu'>{{item.act_comment}}</view>
+        <image src='/static/images/people3.png ' class='comment3'></image>
+        <view class='geshu'>{{item.act_count}}</view>
+      </view>
+
+      <image src='{{item.act_img}}' bindtap='tap_to_detail' bindload='loadSpin' binderror='error_show'  aspectFit class="act_picc  {{dead[index]?'die':''}}" data-act-id='{{item.act_id}}' data-people='{{item.act_count}}'></image>
+
+    </view>
+  </block>
+
+  <view wx:if='{{all_acts.length==0}}' class='meiyou'>暂无活动，敬请期待！</view>
+
+  <view class='blank2' ></view>
+  
+  <template is='bottom' />
+  
+</scroll-view>
+</view>

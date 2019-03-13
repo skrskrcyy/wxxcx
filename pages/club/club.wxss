@@ -1,0 +1,137 @@
+@import '../all_clubs/all_clubs.wxss';
+
+.screen{
+  position: fixed;
+  top: 0;
+  bottom:0;
+  width: 750rpx;
+  z-index: 0;
+  background-color: rgb(57, 54, 61) 
+}
+
+.screen_have{
+  position: relative;
+  top: 0;
+  bottom:0;
+  width: 750rpx;
+  z-index: 0;
+  background-color: rgb(57, 54, 61) 
+}
+
+
+
+.blank2{
+  width: 750rpx;
+  height: 130rpx;
+  
+}
+
+.project{
+  position: relative;
+  z-index: 6;
+  margin-left: 60rpx;
+  width: 160rpx;
+  height: 50rpx;
+  background-image: linear-gradient(#FEFF00,#FEB900);
+  transform: skewX(-10deg);
+  -webkit-transform: skewX(-10deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 31rpx;
+  
+  
+}
+
+.die{
+  opacity: 0.4
+}
+
+.meiyou{
+  margin: 20rpx 0 0 60rpx;
+  color: white;
+  font-size: 40rpx
+}
+
+.cemian{
+  position: absolute;
+  left: -13rpx;
+  top: 17rpx;
+  width: 450rpx;
+  height: 60rpx;
+  z-index: 4;
+  background-image: linear-gradient(#FFF75E,#F8D411);
+  font-size:38rpx;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  font-weight:bold;
+
+}
+
+.cemian::after{
+  content: '';
+  position: absolute;
+  top: 60rpx;
+  left: 0;
+  
+  border-top: 13rpx solid #E8CA00;
+  border-left: 17rpx solid transparent
+}
+
+.run_clubb{
+  position: relative;
+  margin: 55rpx 0 55rpx 0;
+  width: 680rpx;
+  margin-left:35rpx;
+  height: 370rpx;
+  
+  z-index: 10;
+  transform: skewY(-10deg);
+  -webkit-transform: skewY(-10deg);
+  box-shadow: 0 8rpx 12rpx 0rpx hsla(0, 0%, 0%, 0.2);
+  background-color: #DDDDDD
+}
+
+.act_picc{
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%
+}
+
+.dingbuu{
+  position: absolute;
+  bottom:100%;
+  height: 2.5%;
+  width: 100%;
+  z-index: 1;
+  background-image: linear-gradient(90deg,#359BDD,#2F89C4,#16425E)
+}
+
+.horiza{
+  position: absolute;
+  bottom: 0;
+  right: 100rpx;
+  width: 200rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5
+}
+
+.comment3{
+  width: 30rpx;
+  height: 30rpx;
+  margin: 0 5rpx 0 10rpx
+}
+
+.geshu{
+  margin: 0 5rpx 0 10rpx;
+  font-size: 30rpx
+}
+
+.scroll-lock {
+ height: 400px;
+ overflow-y: hidden;
+}
